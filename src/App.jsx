@@ -1,59 +1,37 @@
-// import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
-import PersonalDetails from './components/personal-info/personal-details'
-import EducationCard from './components/education/education-container'
-import Resume from './resume'
-import './App.css'
+import { useState } from 'react';
+import PersonalForm from './components/personal-info/personal-details';
+import EducationCard from './components/education/education-container';
+import Resume from './resume';
+import './App.css';
 
 function App() {
+    const [person, setPerson] = useState({
+        name: 'John Smith',
+        email: 'john@aol.com',
+        phone: '626-700-4000',
+        address: '6252 Mills Ave, Whittier CA'
+    });
 
+    function handlePersonalChange(e) {
+        const { name, value } = e.target;
+        setPerson((prevPerson) => ({
+            ...prevPerson,
+            [name]: value,
+        }));
+    }
 
-
-
-
-
-
-  return (
-    <>
-    <main>
-    
-        <PersonalDetails></PersonalDetails>
-        <EducationCard></EducationCard>
-
-    </main>
-      <aside>
-        <Resume></Resume>
-      </aside>
-    </>
-  )
-
-  // const [count, setCount] = useState(0)
-
-  // return (
-  //   <>
-  //     <div>
-  //       <a href="https://vitejs.dev" target="_blank">
-  //         <img src={viteLogo} className="logo" alt="Vite logo" />
-  //       </a>
-  //       <a href="https://react.dev" target="_blank">
-  //         <img src={reactLogo} className="logo react" alt="React logo" />
-  //       </a>
-  //     </div>
-  //     <h1>Vite + React</h1>
-  //     <div className="card">
-  //       <button onClick={() => setCount((count) => count + 1)}>
-  //         count is {count}
-  //       </button>
-  //       <p>
-  //         Edit <code>src/App.jsx</code> and save to test HMR
-  //       </p>
-  //     </div>
-  //     <p className="read-the-docs">
-  //       Click on the Vite and React logos to learn more
-  //     </p>
-  //   </>
-  // )
+    return (
+        <>
+            <main>
+                <div>{person.name}</div>
+                <PersonalForm person={person} onInputChange={handlePersonalChange} />
+                <EducationCard />
+            </main>
+            <aside>
+                <Resume person={person} />
+            </aside>
+        </>
+    );
 }
 
-export default App
+export default App;
