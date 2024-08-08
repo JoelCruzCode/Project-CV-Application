@@ -1,7 +1,9 @@
 import { Fragment } from "react";
+import EducationCard from './components/education/education-card';
 import PropTypes from 'prop-types'
 
-export default function Resume ({ person }) {
+
+export default function Resume ({ person, education}) {
 
     return (
         <Fragment>
@@ -15,6 +17,14 @@ export default function Resume ({ person }) {
                 <div className="resume-details">
                     <div>
                         <h3 className="details-title">Education</h3>
+                        <EducationCard school={education.currentForm} />
+                        <br></br>
+                        {education.schools.map((school) => (
+                            <>
+                            <EducationCard key={school.id} school={school} />
+                            <br></br>
+                            </>
+                        ))}
                     </div>
                    <div>
                     <h3 className="details-title">Experience</h3>
@@ -32,5 +42,24 @@ Resume.propTypes = {
         email: PropTypes.string.isRequired,
         phone: PropTypes.string.isRequired,
         address: PropTypes.string.isRequired
-    }).isRequired
-};
+    }).isRequired,
+    education: PropTypes.shape({
+        schools: PropTypes.arrayOf(
+            PropTypes.shape({
+                id: PropTypes.string.isRequired,
+                school: PropTypes.string.isRequired,
+                degree: PropTypes.string.isRequired,
+                location: PropTypes.string.isRequired,
+                start: PropTypes.string.isRequired,
+                end: PropTypes.string.isRequired,
+            })
+        ).isRequired,
+        currentForm: PropTypes.shape({
+            school: PropTypes.string.isRequired,
+            degree: PropTypes.string.isRequired,
+            location: PropTypes.string.isRequired,
+            start: PropTypes.string.isRequired,
+            end: PropTypes.string.isRequired,
+        }).isRequired
+    }).isRequired,
+}
