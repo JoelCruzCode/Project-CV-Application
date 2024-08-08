@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 
 export default function PersonalForm({ person, onInputChange }) {
     return (
-        <div>
+        <form>
             <p>Full name</p>
             <input name="name" value={person.name} onInput={onInputChange} />
             <p>Email</p>
@@ -11,7 +11,7 @@ export default function PersonalForm({ person, onInputChange }) {
             <input name="phone" value={person.phone} onInput={onInputChange} />
             <p>Address</p>
             <input name="address" value={person.address} onInput={onInputChange} />
-        </div>
+            </form>
     );
 }
 
