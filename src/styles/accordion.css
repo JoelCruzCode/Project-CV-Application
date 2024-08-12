@@ -36,3 +36,24 @@
     outline: #444;
     transition: 0.4s;
   }
+
+  /* .education-form {
+    display: none !important; 
+} */
+
+
+
+.form-btn-container {
+  display: flex;
+  flex-direction: row;
+}
+.form-btn {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  width: 100%;
+  padding: 18px;
+  border: solid;
+  outline: #444;
+  transition: 0.4s;
+}
