@@ -22,25 +22,32 @@ export default function App() {
       id: '123'
     }
 
-    const dexter = {
-      school: 'Dexter Middle School',
-      degree: '',
-      location: '',
-      start: '',
-      end: '',
-      id: '345'
-    }
-    const pioneer = {
-      school: 'Pioneer High School',
-      degree: '',
-      location: '',
-      start: '',
-      end: '',
-      id: '567'
-    }
+    // const dexter = {
+    //   school: 'Dexter Middle School',
+    //   degree: '',
+    //   location: '',
+    //   start: '',
+    //   end: '',
+    //   id: '345'
+    // }
+    // const pioneer = {
+    //   school: 'Pioneer High School',
+    //   degree: '',
+    //   location: '',
+    //   start: '',
+    //   end: '',
+    //   id: '567'
+    // }
     const [education, setEducation] = useState({
-      schools: [whittier, dexter, pioneer], 
+      schools: [whittier,] ,
       currentForm: {
+        school: '',
+        degree: '',
+        location: '',
+        start: '',
+        end: ''
+      },
+      editForm: {
         school: '',
         degree: '',
         location: '',
@@ -69,66 +76,66 @@ export default function App() {
         }
       }))
     }
-    // This works but logic could be better 
-    function fillSchoolInput (e) {
-      const id = e.target.dataset.id
-      const selected = education.schools.find(school => (
-          id === school.id
-      ))
-      const remainingSchools = education.schools.filter(school => (
-        id !== school.id
-      ))
 
-      setEducation(prevEducation => ({
-        ...prevEducation, 
-        schools: remainingSchools,
-        currentForm: {
-          school: selected.school,
-          degree: selected.degree,
-          location: selected.location,
-          start: selected.start,
-          end: selected.end,
-        }
-      }))
+
+  function handleTargetedEducationChange(e) {
+    const {name, value} = e.target
+    const form = e.target.closest('form'); 
+    const id = e.target.closest('form').dataset.id
+
+    console.log(form)
+    setEducation(prevEducation => ({
+      ...prevEducation,
+      schools: prevEducation.schools.map(school => 
+        school.id === id ? {...school, [name]: value} : school,
+      ),
+    })
+    )
   }
-  /////////////////////////////////////////////////////////////////////
 
 
-    // function selectSchool (e) {
-    //   const id = e.target.dataset.id
-    //   const selected = education.schools.find(school => (
-    //       id === school.id
-    //   ))
 
-    //   setEducation(prevEducation => ({
-    //     ...prevEducation,
-    //     currentForm: { ...selected }
-    //   }))
-    // }
+  function handleEducationDelete(e) {
+    e.preventDefault()
+    const id = e.target.closest('.education-form').dataset.id
+    console.log('logging id: ', id)
+    setEducation(prev => ({
+      ...prev, 
+      schools: prev.schools.filter(school => 
+        school.id !== id
+      ),
+    }))
+  }
+  // TODO // modifty education state to include a new property editForm to keep state when form is opened so user can cancel the edit
+  function handleEducationCancel(id) {
+    setEducation(prev => ({
+      ...prev, 
+      schools: prev.schools.map(school => 
+        school.id === id ? prev.editForm : school
+      ),
+      editForm: {
+        school: '',
+        degree: '',
+        location: '',
+        start: '',
+        end: ''
+      }
+    }))
+  }
 
-    // function handleEducationChange(e) {
-    //   const {name, value} = e.target;
-
-    //   setEducation(prevEducation => ({
-    //     ...prevEducation,
-    //     currentForm: {...prevEducation.currentForm},
-    //     [name]: value,
-    //     schools: prevEducation.schools.map(school => 
-    //       school.id === prevEducation.currentForm.id 
-    //       ? {...school, [name]: value }
-    //       : school
-    //     )
-        
-    //   }))
-    // }
-    
-
+  function fillEditForm(id) {
+    const edit = education.schools.find(school =>  school.id === id)
+    setEducation(prev => ({
+      ...prev,
+      editForm: edit
+    }))
+  }
 
 
     function handleEducationSubmit() {
-      // e.preventDefault();
+      const newSchoolId = uuidv4()
       setEducation(prevEducation => ({
-        schools: [...prevEducation.schools, {...prevEducation.currentForm, id: uuidv4() }],
+        schools: [...prevEducation.schools, {...prevEducation.currentForm, id: newSchoolId }],
         currentForm: {
           school: '',
           degree: '',
@@ -137,6 +144,8 @@ export default function App() {
           end: ''
         }
       }));
+
+      return newSchoolId
     }
 
   
@@ -146,13 +155,13 @@ export default function App() {
             <main>
                 <div>{person.name}</div>
                 <PersonalForm person={person} onInputChange={handlePersonalChange} />
-                <EducationSection education={education} fillInput={fillSchoolInput}onChange={handleEducationChange} onSubmit={handleEducationSubmit} educationCard={EducationCard} />
-                {/* <EducationSection education={education} fillInput={fillSchoolInput}onChange={handleEducationChange} onSubmit={handleEducationSubmit} educationCard={EducationCard} /> */}
-                <div>
-                    {education.schools.map((school) => (
-                        <EducationCard key={school.id} school={school} />
-                    ))}
-                </div>
+                <EducationSection education={education}  
+                onChange={handleEducationChange} 
+                onSubmit={handleEducationSubmit} 
+                onDelete={handleEducationDelete}
+                targetedChange={handleTargetedEducationChange}
+                onCancel={handleEducationCancel}
+                fillEditForm={fillEditForm}/>
             </main>
             <aside>
                 <Resume person={person} education={education} />
@@ -163,8 +172,3 @@ export default function App() {
 
 
 
-
-// TODO //  create a handler for submitting an education form
-// TODO // pass submitEducation Handler to EducationForm
-// TODO // research keys prop so react can correctly identify Education objects
-// TODO // create a handler to delete education objects

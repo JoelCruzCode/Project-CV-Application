@@ -1,47 +1,48 @@
 import PropTypes from 'prop-types';
 
-export default function EducationForm({ education, onSubmit, onChange }) {
-    const { currentForm } = education;
+export default function EducationForm({ education, onChange, onSubmit, onDelete ,onCancel, id, className, style}) {
 
     return (
-        <form onSubmit={onSubmit}>
+        <form style={style} className={className} data-id={id}onSubmit={onSubmit}>
             <p>School name</p>
             <input
                 type="text"
                 name="school"
-                value={currentForm.school}
+                value={education.school}
                 onChange={onChange}
             />
             <p>Degree</p>
             <input
                 type="text"
                 name="degree"
-                value={currentForm.degree}
+                value={education.degree}
                 onChange={onChange}
             />
             <p>Location</p>
             <input
                 type="text"
                 name="location"
-                value={currentForm.location}
+                value={education.location}
                 onChange={onChange}
             />
             <p>Start date</p>
             <input
                 type="date"
                 name="start"
-                value={currentForm.start}
+                value={education.start}
                 onChange={onChange}
             />
             <p>End date</p>
             <input
                 type="date"
                 name="end"
-                value={currentForm.end}
+                value={education.end}
                 onChange={onChange}
             />
-            <div>
-                <button className="school-btn" type="submit">Save</button>
+            <div className='form-btn-container'>
+                <button onClick={onDelete} className='form-btn' data-id={id} type='click'>Delete</button>
+                <button onClick={onCancel} className='form-btn' data-id={id} type='click'>Cancel</button>
+                <button className="form-btn" data-id={id} type="submit">Save</button>
             </div>
         </form>
     );
@@ -59,6 +60,11 @@ EducationForm.propTypes = {
             end: PropTypes.string.isRequired,
         })
     }),
+    id: PropTypes.string.isRequired,
+    className: PropTypes.string.isRequired,
+    style: PropTypes.object.isRequired,
     onChange : PropTypes.func.isRequired,
     onSubmit : PropTypes.func.isRequired,
+    onDelete : PropTypes.func.isRequired,
+    onCancel: PropTypes.func.isRequired,
 }
