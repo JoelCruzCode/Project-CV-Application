@@ -10,38 +10,44 @@ export default function EducationSection({ education, onChange, onSubmit, onCanc
 
     const [formDisplay, setFormDisplay] = useState({
         forms: [{ id: '123', visible: false }],
-        currentForm: { id: null, visible: true }
+        currentForm: { id: null, visible: false}
     });
 
-    useEffect(() => {
-        console.log('Education: ', education);
-    }, [education])
+    // useEffect(() => {
+    //     console.log('Education: ', education);
+    // }, [education])
 
-    const isFormVisible = (id) => {
+    useEffect(() => {
+        console.log('FormDisplay: ', formDisplay);
+    }, [formDisplay])
+
+    const handleVisibility = (id) => {
         console.log('Checking visibility for form with id:', id);
         const form = formDisplay.forms.find(f => f.id === id);
 
         if (form) {
-            console.log('Form found:', form);
-            console.log('Visibility:', form.visible);
-        } else {
-            console.log('Form not found for id:', id);
-        }
-
-        return form ? form.visible : false;
+            return form.visible
+        } 
+        return formDisplay.currentForm.visible
     };
+
+    // Helper function for toggleForms and HandleCancel
+    function updateFormDisplay(id, found) {
+        setFormDisplay(prev => ({
+            ...prev,
+            forms: prev.forms.map(form => 
+                form.id === id ? {...form, visible: !form.visible} : {...form, visible: false}
+            ),
+            currentForm: !found ? {id: null, visible: !prev.currentForm.visible} : {id: null, visible: false}
+        }))
+    }
 
 
     function toggleForms(e) {
        e.preventDefault()
        const id =  e.target.dataset.id 
-       fillEditForm(id)
-       setFormDisplay(prev => ({
-        ...prev,
-        forms: prev.forms.map(form => 
-            form.id === id ? {...form, visible: !form.visible} : {...form, visible: false}
-        )
-       }))
+       const found = fillEditForm(id)
+       updateFormDisplay(id, found)
     }
 
 
@@ -55,29 +61,28 @@ export default function EducationSection({ education, onChange, onSubmit, onCanc
         }
     }
 
+
     function handleSubmit(e) {
         e.preventDefault();
         const uuid = onSubmit();
         console.log('UUID generated on submit:', uuid);
         setFormDisplay(prev => ({
             ...prev,
-            forms: [...prev.forms, { id: uuid, visible: false }]
+            forms: [...prev.forms, { id: uuid, visible: false }],
+            currentForm: {id: null, visible: false}
         }));
         setForm(prevStatus => !prevStatus);
-        // toggleForm();
     }
+
 
     function handleCancel(e) {
         e.preventDefault()
         const id  = e.target.dataset.id
+        const found = education.schools.find(school => school.id === id)
         onCancel(id);
-        setFormDisplay(prev => ({ 
-            ...prev,
-            forms: prev.forms.map(form => 
-                form.id === id ? {...form, visible: false} : form
-            )
-        }))
+        updateFormDisplay(id, found)
     }
+
 
     return (
         <>
@@ -93,10 +98,17 @@ export default function EducationSection({ education, onChange, onSubmit, onCanc
                 <div className='school-container'>
                     {education.schools.map(school => (
                         <div key={school.id}>
-                            <button onClick={toggleForms} className="school-btn" data-id={school.id}>{school.school}</button>
+                            <button 
+                                // style={{ display: handleVisibility(school.id) ? 'block' : 'none' }}
+                                onClick={toggleForms} 
+                                className="school-btn" 
+                                data-id={school.id}
+                            >
+                                {school.school}               
+                            </button>
                             <EducationForm
                                 key={school.id}
-                                style={{ display: isFormVisible(school.id) ? 'block' : 'none' }}
+                                style={{ display: handleVisibility(school.id) ? 'block' : 'none' }}
                                 className="education-form"
                                 id={school.id}
                                 education={school}
@@ -107,14 +119,26 @@ export default function EducationSection({ education, onChange, onSubmit, onCanc
                             />
                         </div>
                     ))}
-                </div>
+                <button 
+                    // style={{ display: handleVisibility(null) ? 'block' : 'none' }}
+                    onClick={toggleForms} 
+                    type='button' 
+                    className="school-btn" 
+                    data-id={null}
+                >
+                    New
+                </button>
                 <EducationForm
+                    style={{ display: handleVisibility(null) ? 'block' : 'none' }}
                     className="education-form"
                     education={education.currentForm}
                     onChange={onChange}
                     onSubmit={handleSubmit}
-                    onDelete={onDelete}
+                    onCancel={handleCancel}
+
                 />
+                </div>
+
             </div>
         </>
     );
