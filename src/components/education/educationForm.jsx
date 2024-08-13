@@ -2,6 +2,9 @@ import PropTypes from 'prop-types';
 
 export default function EducationForm({ education, onChange, onSubmit, onDelete ,onCancel, id, className, style}) {
 
+
+
+
     return (
         <form style={style} className={className} data-id={id}onSubmit={onSubmit}>
             <p>School name</p>
@@ -40,8 +43,10 @@ export default function EducationForm({ education, onChange, onSubmit, onDelete 
                 onChange={onChange}
             />
             <div className='form-btn-container'>
-                <button onClick={onDelete} className='form-btn' data-id={id} type='click'>Delete</button>
-                <button onClick={onCancel} className='form-btn' data-id={id} type='click'>Cancel</button>
+                {id && (
+                    <button onClick={onDelete} className='form-btn' data-id={id} type='button'>Delete</button>
+            )}
+                <button onClick={onCancel} className='form-btn' data-id={id} type='button'>Cancel</button>
                 <button className="form-btn" data-id={id} type="submit">Save</button>
             </div>
         </form>
