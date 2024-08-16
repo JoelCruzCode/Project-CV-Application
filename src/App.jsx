@@ -8,6 +8,15 @@ import './App.css';
 
 export default function App() {
 
+  const whittier = {
+    school: 'Whittier High',
+    degree: '',
+    location: '',
+    start: '',
+    end: '',
+    id: '123'
+  }
+
     const [person, setPerson] = useState({
         name: 'John Smith',
         email: 'john@aol.com',
@@ -33,14 +42,7 @@ export default function App() {
       }
     });
 
-    const whittier = {
-      school: 'Whittier High',
-      degree: '',
-      location: '',
-      start: '',
-      end: '',
-      id: '123'
-    }
+
 
 
     function handlePersonalChange(e) {
@@ -80,11 +82,7 @@ export default function App() {
   }
 
 
-  function handleEducationDelete(e) {
-    e.preventDefault()
-
-    const id = e.target.closest('.education-form').dataset.id
-
+  function handleEducationDelete(id) {
     setEducation(prev => ({
       ...prev, 
       schools: prev.schools.filter(school => 
@@ -142,7 +140,7 @@ export default function App() {
           editForm: data
         }))
       }
-      
+
       return data
     }
 
