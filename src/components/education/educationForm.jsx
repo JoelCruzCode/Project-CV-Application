@@ -2,9 +2,6 @@ import PropTypes from 'prop-types';
 
 export default function EducationForm({ education, onChange, onSubmit, onDelete ,onCancel, id, className, style}) {
 
-
-
-
     return (
         <form style={style} className={className} data-id={id}onSubmit={onSubmit}>
             <p>School name</p>
@@ -57,6 +54,11 @@ export default function EducationForm({ education, onChange, onSubmit, onDelete 
 EducationForm.propTypes = {
     education: PropTypes.shape({
         schools : PropTypes.arrayOf.isRequired, 
+        school: PropTypes.string.isRequired,
+        degree: PropTypes.string.isRequired,
+        location: PropTypes.string.isRequired,
+        start: PropTypes.string.isRequired,
+        end: PropTypes.string.isRequired,
         currentForm: PropTypes.shape({
             school : PropTypes.string.isRequired,
             degree: PropTypes.string.isRequired,
