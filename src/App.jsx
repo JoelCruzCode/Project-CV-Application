@@ -2,6 +2,7 @@ import { useState } from 'react';
 import {v4 as uuidv4 } from 'uuid'
 import PersonalForm from './components/personal-info/personal-form';
 import EducationSection from './components/education/education-section';
+import CareerSection from './components/experience/experience-section';
 import Resume from './resume';
 import './App.css';
 
@@ -23,9 +24,7 @@ export default function App() {
         address: '6252 Mills Ave, Whittier CA'
     });
 
-    // TODO rename update to sections
-    // TODO Refactor education to hold careers
-    // TODO add a dataset.key property to access arrays: schools : jobs
+    
     const [education, setEducation] = useState({
       schools: [whittier,] ,
       currentForm: {
@@ -63,7 +62,7 @@ export default function App() {
         }
       },
       career: {
-        Jobs: [],
+        jobs: [],
         currentForm: {
           company: '',
           position: '',
@@ -95,8 +94,9 @@ export default function App() {
       }
     };
 
-    function handleSectionChange(e, sectionName) {
+    function handleSectionChange(sectionName, e) {
       const {name, value} = e.target
+      console.log(e.target)
       const section = sections[sectionName]
       setSections(prev => ({
         ...prev,
@@ -110,11 +110,14 @@ export default function App() {
       }))
     }
 
-    function handleTargetedSectionChange(e, sectionName) {
+    function handleTargetedSectionChange(sectionName, e) {
       const {name, value} = e.target
       const form = e.target.closest('form')
       const id = form.dataset.id
       const arrayName = form.dataset.key
+      console.log('target', e.target)
+      console.log('form:', form)
+      console.log('arrayName: ', arrayName)
       const section = sections[sectionName]
       const array = section[arrayName]
 
@@ -143,7 +146,8 @@ export default function App() {
         ...prev,
         [sectionName]: {
           ...section,
-          [arrayName]: remaining
+          [arrayName]: remaining,
+
         }
       }))
     }
@@ -155,8 +159,9 @@ export default function App() {
       setSections(prev => ({
         ...prev,
         [sectionName]: {...section, 
-          [arrayName]: [...array, {...section.current, id: newSectionId}],
-          currentForm: initialFormState[sectionName].currentForm
+          [arrayName]: [...array, {...section.currentForm, id: newSectionId}],
+          currentForm: initialFormState[sectionName].currentForm,
+          editForm : initialFormState[sectionName].editForm
         }
       }))
   
@@ -177,7 +182,21 @@ export default function App() {
 
       return data
     }
-    
+
+    function handleSectionCancel(id, sectionName, arrayName) {
+      const section = sections[sectionName]
+      const array = section[arrayName]
+      setSections(prev => ({
+        ...prev,
+        [sectionName]: {...section,
+          [arrayName]: array.map(obj => 
+            obj.id === id ? section.editForm : obj
+          ),
+          currentForm: initialFormState[sectionName].currentForm,
+          editForm : initialFormState[sectionName].editForm,
+      }}))
+  }
+  
     //////////////////////////////
 
 
@@ -227,19 +246,6 @@ export default function App() {
     }))
   }
 
-  function handleSectionCancel(id, sectionName, arrayName) {
-    const section = sections[sectionName]
-    const array = section[arrayName]
-    setSections(prev => ({
-      ...prev,
-      [sectionName]: {...section,
-        [arrayName]: array.map(obj => 
-          obj.id === id ? section.editForm : obj
-        ),
-        currentForm: initialFormState[sectionName].currentForm,
-        editForm : initialFormState[sectionName].editForm,
-    }}))
-}
 
   function handleEducationCancel(id) {
     setEducation(prev => ({
@@ -281,21 +287,6 @@ export default function App() {
       return newSchoolId
     }
 
-    function fillSectionEditForm(id, sectionName, arrayName) {
-      const section = sections[sectionName]
-      const array = section[arrayName]
-      const data = array.find(obj => obj.id === id)
-
-      setSections(prev => ({
-        ...prev, 
-        [sectionName]: {...section, 
-          editForm: data
-        }
-      }))
-
-      return data
-    }
-
 
     function fillEditForm(id) {
       const data = education.schools.find(school =>  school.id === id)
@@ -323,10 +314,20 @@ export default function App() {
                 onDelete={handleEducationDelete}
                 targetedChange={handleTargetedEducationChange}
                 onCancel={handleEducationCancel}
-                fillEditForm={fillEditForm}/>
+                fillEditForm={fillEditForm}
+                />
+                <CareerSection
+                sections={sections}
+                onChange={handleSectionChange}
+                onSubmit={handleSectionSubmit}
+                onDelete={handleSectionDelete}
+                onCancel={handleSectionCancel}
+                targetedChange={handleTargetedSectionChange}
+                fillEditForm={fillSectionEditForm}
+                />
             </main>
             <aside>
-                <Resume person={person} education={education} />
+                <Resume person={person} education={education} sections={sections}/>
             </aside>
         </>
     );
