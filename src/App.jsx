@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import {v4 as uuidv4 } from 'uuid'
+import { examplePersonal, exampleSchool, initialFormState } from './starter-data';
 import PersonalForm from './components/personal-info/personal-form';
 import EducationSection from './components/education/education-section';
 import CareerSection from './components/experience/experience-section';
@@ -8,25 +9,13 @@ import './App.css';
 
 export default function App() {
 
-  const whittier = {
-    school: 'Whittier High',
-    degree: '',
-    location: '',
-    start: '',
-    end: '',
-    id: '123'
-  }
 
-    const [person, setPerson] = useState({
-        name: 'John Smith',
-        email: 'john@aol.com',
-        phone: '626-700-4000',
-        address: '6252 Mills Ave, Whittier CA'
-    });
+
+    const [person, setPerson] = useState(examplePersonal);
 
     
     const [education, setEducation] = useState({
-      schools: [whittier,] ,
+      schools: [exampleSchool] ,
       currentForm: {
         school: '',
         degree: '',
@@ -45,7 +34,7 @@ export default function App() {
 
     const [sections, setSections] = useState({
         education: {
-         schools: [whittier,] ,
+         schools: [exampleSchool,] ,
         currentForm: {
           school: '',
           degree: '',
@@ -83,16 +72,6 @@ export default function App() {
       }
     );
 
-    const initialFormState = {
-      education: {
-        currentForm: { school: '', degree: '', location: '', start: '', end: '' },
-        editForm: { school: '', degree: '', location: '', start: '', end: '' }
-      },
-      career: {
-        currentForm: { company: '', position: '', description: '', start: '', end: '', id: '' },
-        editForm: { company: '', position: '', description: '', start: '', end: '', id: '' }
-      }
-    };
 
     function handleSectionChange(sectionName, e) {
       const {name, value} = e.target
