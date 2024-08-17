@@ -3,7 +3,7 @@ import EducationCard from './components/education/education-card';
 import PropTypes from 'prop-types'
 
 
-export default function Resume ({ person, education}) {
+export default function Resume ({ person, education, sections}) {
 
     return (
         <Fragment>
@@ -28,6 +28,18 @@ export default function Resume ({ person, education}) {
                     </div>
                    <div>
                     <h3 className="details-title">Experience</h3>
+                    <br></br>
+                    {sections.career.jobs.map(job => (
+                        <>
+                        <div key={job.id}>
+                            <p>{job.company}</p>
+                            <p>{job.position}</p>
+                            <p>{job.description}</p>
+                            <p>{job.start}</p>
+                            <p>{job.end}</p>
+                        </div>
+                        </>
+                    ))}
                    </div>
                 </div>
             </div>
