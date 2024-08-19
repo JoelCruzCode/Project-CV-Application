@@ -1,10 +1,13 @@
 import PropTypes from 'prop-types';
-
+import { toTitleCase } from '../helper-functions';
 
 export default function CreateForm({section, dataKey, id, className, style, onChange, onSubmit, onDelete, onCancel}) {
-        const formFields = Object.keys(section).filter(key => key !== 'id').map(key => (
+        const keys = Object.keys(section).filter(key => key !== 'id')
+        const labels = keys.map(key => toTitleCase(key.split(/(?=[A-Z])/).join(' ')))
+
+    const formFields = keys.map((key,i) => (
             <div key={key}> 
-                <label htmlFor={key}>{key}</label>
+                <label htmlFor={key}>{labels[i]}</label>
                 <input
                 type='text'
                 name={key}

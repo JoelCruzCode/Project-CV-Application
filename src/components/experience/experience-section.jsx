@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import CreateForm from '../createForm';
+import "../../styles/accordion.css";
 
 
 export default function CareerSection({sections, onChange, onSubmit, onCancel, onDelete, targetedChange, fillEditForm}) {
@@ -129,7 +130,7 @@ export default function CareerSection({sections, onChange, onSubmit, onCancel, o
                                 key={job.id}
                                 section={job}
                                 id={job.id}
-                                className="education-form"
+                                className="section-form"
                                 style={{ display: handleVisibility(job.id, 'form') ? 'block' : 'none' }}
                                 onChange={(e) => targetedChange(sectionName, e)}
                                 onSubmit={toggleForms}
@@ -151,7 +152,7 @@ export default function CareerSection({sections, onChange, onSubmit, onCancel, o
                     data-key={'jobs'}
                     section={sections[sectionName].currentForm}
                     id={''}
-                    className="education-form"
+                    className="section-form"
                     style={{ display: handleVisibility(null, 'form') ? 'block' : 'none' }}
                     onChange={(e) => onChange(sectionName, e)}
                     onSubmit={handleSubmit}

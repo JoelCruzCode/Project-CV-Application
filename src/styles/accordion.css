@@ -24,6 +24,11 @@
     overflow: hidden;
   }
 
+  
+.school-container {
+  background-color: grey;
+  min-height: 440px;
+}
 
 
   .school-btn {
@@ -56,4 +61,36 @@
   border: solid;
   outline: #444;
   transition: 0.4s;
+}
+
+
+
+.section-form {
+  min-height: 440px;
+  background-color: rgb(121, 121, 38);
+  padding: 1rem
+}
+
+
+.section-form div {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.section-form div:last-child {
+  flex-direction: row;
+}
+
+
+input {
+  border-radius: 16px;
+  width: 36ch;
+  margin: auto;
+  height: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+label {
+  margin-bottom: 1rem;
 }
