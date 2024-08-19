@@ -39,15 +39,15 @@ export default function App() {
           school: '',
           degree: '',
           location: '',
-          start: '',
-          end: ''
+          startDate: '',
+          endDate: ''
         },
         editForm: {
           school: '',
           degree: '',
           location: '',
-          start: '',
-          end: ''
+          startDate: '',
+          endDate: ''
         }
       },
       career: {
@@ -56,16 +56,16 @@ export default function App() {
           company: '',
           position: '',
           description: '',
-          start: '',
-          end: '',
+          startDate: '',
+          endDate: '',
           id: ''
         },
         editForm: {
           company: '',
           position: '',
           description: '',
-          start: '',
-          end: '',
+          startDate: '',
+          endDate: '',
           id: ''
         }
       }

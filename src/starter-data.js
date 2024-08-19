@@ -2,8 +2,8 @@ const exampleSchool = {
     school: 'Whittier High',
     degree: '',
     location: '',
-    start: '',
-    end: '',
+    startDate: '',
+    endDate: '',
     id: '123'
   }
 
@@ -19,12 +19,12 @@ const exampleSchool = {
 
   const initialFormState = {
     education: {
-      currentForm: { school: '', degree: '', location: '', start: '', end: '' },
-      editForm: { school: '', degree: '', location: '', start: '', end: '' }
+      currentForm: { school: '', degree: '', location: '', startDate: '', endDate: '' },
+      editForm: { school: '', degree: '', location: '', startDate: '', endDate: '' }
     },
     career: {
-      currentForm: { company: '', position: '', description: '', start: '', end: '', id: '' },
-      editForm: { company: '', position: '', description: '', start: '', end: '', id: '' }
+      currentForm: { company: '', position: '', description: '', startDate: '', endDate: '', id: '' },
+      editForm: { company: '', position: '', description: '', startDate: '', endDate: '', id: '' }
     }
   };  
 
