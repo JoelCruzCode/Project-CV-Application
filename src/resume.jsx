@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import SectionCard from './components/section-card';
+import ResumeCard from './components/resume-card';
 import PropTypes from 'prop-types'
 
 
@@ -20,12 +20,12 @@ export default function Resume ({ person, sections}) {
                     <br></br>
                     {sections.education.schools.map(school => (
                         <>
-                        <SectionCard section={school}/>
+                        <ResumeCard section={school} />
                         <br></br>
                         </>
                     ))}
                         <div>
-                         <SectionCard section={sections.education.currentForm}/>
+                         <ResumeCard section={sections.education.currentForm}/>
                         </div>
                    </div>
                    <div>
@@ -33,11 +33,11 @@ export default function Resume ({ person, sections}) {
                     <br></br>
                     {sections.career.jobs.map(job => (
                         <>
-                        <SectionCard section={job}/>
+                        <ResumeCard section={job}/>
                         <br></br>
                         </>
                     ))}
-                        <SectionCard section={sections.career.currentForm}/>
+                        <ResumeCard section={sections.career.currentForm}/>
                    </div>
                 </div>
             </div>
