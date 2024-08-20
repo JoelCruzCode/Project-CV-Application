@@ -286,16 +286,7 @@ export default function App() {
         <>
             <main>
                 <PersonalForm person={person} onInputChange={handlePersonalChange} />
-                {/* <EducationSection 
-                education={education}  
-                onChange={handleEducationChange} 
-                onSubmit={handleEducationSubmit} 
-                onDelete={handleEducationDelete}
-                targetedChange={handleTargetedEducationChange}
-                onCancel={handleEducationCancel}
-                fillEditForm={fillEditForm}
-                /> */}
-
+                <div className='sections-container'>
                 <EducationSection 
                 sections={sections}
                 onChange={handleSectionChange}
@@ -314,6 +305,7 @@ export default function App() {
                 targetedChange={handleTargetedSectionChange}
                 fillEditForm={fillSectionEditForm}
                 />
+                </div>
             </main>
             <aside>
                 <Resume person={person} sections={sections}/>
