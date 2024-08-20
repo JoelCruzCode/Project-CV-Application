@@ -1,14 +1,15 @@
 import PropTypes from 'prop-types';
 
-export default function SectionCard({ section }) {
+export default function ResumeCard({ section }) {
     return (
-        <div>
+        <div className='resume-card'>
                 {Object.keys(section).filter(key => key !== 'id').map(key => {
                     switch(key) {
                         case 'startDate': 
                             return <p>{section.startDate && `${section.startDate}  -  `} {section.endDate}</p>
                         case 'endDate': 
                             return null;
+                        
                         default:
                             return <p key={key}>{section[key]}</p>
                     }
@@ -18,7 +19,7 @@ export default function SectionCard({ section }) {
     );
 }
 
-SectionCard.propTypes = {
+ResumeCard.propTypes = {
     section: PropTypes.shape({
         startDate: PropTypes.string,
         endDate: PropTypes.string,
