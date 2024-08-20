@@ -5,18 +5,25 @@ export default function CreateForm({section, dataKey, id, className, style, onCh
         const keys = Object.keys(section).filter(key => key !== 'id')
         const labels = keys.map(key => toTitleCase(key.split(/(?=[A-Z])/).join(' ')))
 
-    const formFields = keys.map((key,i) => (
+        const formFields = keys.map((key, i) => (
             <div key={key}> 
                 <label htmlFor={key}>{labels[i]}</label>
-                <input
-                type='text'
-                name={key}
-                value={section[key]}
-                onChange={onChange}
-                >
-                </input>
+                {key === 'description' ? (
+                    <textarea
+                        name={key}
+                        value={section[key]}
+                        onChange={onChange}
+                    />
+                ) : (
+                    <input
+                        type="text"
+                        name={key}
+                        value={section[key]}
+                        onChange={onChange}
+                    />
+                )}
             </div>
-        ))
+        ));
 
 
     return (
