@@ -2,7 +2,10 @@ import PropTypes from 'prop-types';
 
 export default function PersonalForm({ person, onInputChange }) {
     return (
-        <form>
+        <div>
+            <div className='section-container'>
+            <form className='personal-form'>
+            <h2> Personal Details</h2>
             <p>Full name</p>
             <input name="name" value={person.name} onInput={onInputChange} />
             <p>Email</p>
@@ -12,6 +15,9 @@ export default function PersonalForm({ person, onInputChange }) {
             <p>Address</p>
             <input name="address" value={person.address} onInput={onInputChange} />
             </form>
+            </div>
+        </div>
+     
     );
 }
 
