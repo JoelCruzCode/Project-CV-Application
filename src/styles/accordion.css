@@ -1,14 +1,23 @@
 /* Style the buttons that are used to open and close the accordion panel */
 .accordion {
-    background-color: #eee;
-    color: #444;
+    background-color: #fff;
+    color: black;
+    font-size: 1.2rem;
+    font-weight: bold;
     cursor: pointer;
     padding: 18px;
     width: 100%;
-    /* text-align: left; */
-    border: none;
+    border: transparent;
     outline: none;
     transition: 0.4s;
+    margin-top: 2rem;
+    /* margin-bottom:  */
+
+  }
+
+  .collapsed {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px
   }
   
   /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
@@ -18,40 +27,40 @@
   
   /* Style the accordion panel. Note: hidden by default */
   .panel {
-    padding: 0 18px;
-    /* background-color: white; */
     display: none;
     overflow: hidden;
   }
 
   
-.school-container {
-  background-color: grey;
-  min-height: 440px;
+.section-container {
+  border-radius: 12px;
 }
 
 
-  .school-btn {
+  .new-entry-btn, .entry-btn {
     background-color: #eee;
-    color: #444;
+    color: black;
     cursor: pointer;
     width: 100%;
     padding: 18px;
-    border: solid;
-    outline: #444;
+    border: transparent;
+    margin: .2rem 0;
+    /* outline: #444; */
     transition: 0.4s;
+    border-radius: 0;
   }
 
-  /* .education-form {
-    display: none !important; 
-} */
-
-
+  .new-entry-btn {
+    margin-top: 0px;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+  }
 
 .form-btn-container {
   display: flex;
   flex-direction: row;
 }
+
 .form-btn {
   background-color: #eee;
   color: #444;
@@ -63,14 +72,13 @@
   transition: 0.4s;
 }
 
-
-
-.section-form {
-  min-height: 440px;
-  background-color: rgb(121, 121, 38);
-  padding: 1rem
+.personal-form {
+  border-radius: 12px;
 }
-
+.personal-form h2{
+  margin-top: .5rem;
+  margin-bottom: 1.5rem;
+}
 
 .section-form div {
   display: flex;
@@ -82,13 +90,24 @@
   flex-direction: row;
 }
 
+form {
+padding: 1rem;
+border-radius: 12px;
+border-top-left-radius: 0;
+border-top-right-radius: 0;
+background-color: white
+}
 
 input {
-  border-radius: 16px;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  transition: border .25s, box-shadow .25s;
   width: 36ch;
   margin: auto;
   height: 1.8rem;
   margin-bottom: 1rem;
+  background-color: #f3f4f6;
+  color: black;
 }
 
 label {

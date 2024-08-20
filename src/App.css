@@ -6,6 +6,7 @@
   justify-items: center;
   gap: 5rem;
   padding: 2rem;
+  color:black
 }
 
 main {
@@ -17,50 +18,35 @@ main {
   display: flex;
   width: 800px;
   height: 900px;
-  background-color: white;
+  background-color: #fff;
 
 }
 
 .resume-personal {
   padding: 2rem;
   width: 300px;
-  background-color: grey;
+  background-color: #0e374e;
 }
 
 .resume-personal h3 {
-  color: purple;
+  color: #fff;
   font-size: 2rem;
+}
+
+.resume-personal p {
+  color: #fff
 }
 
 .resume-details {
   width: 500px;
   padding: 2rem;
-  background-color: black;
+  background-color: #fff
 }
 
 .details-title {
-  color: blue;
-  font-size: 2rem;
+  color: #0e374e;
+  font-size: 1.3rem;
+  background-color: #eee;
+  text-align: center;
 }
 
-
-
-/* .school-card {
-  display: flex;
-  width: 260px;
-  gap: 50px
-}
-
-.school-card > div:nth-child(1) {
-  width: 200px;
-  background-color: blue;
-}
-
-
-
-.school-input-box {
-  display: flex;
-  align-items: center;
-  height: 3rem;
-  gap: 1rem;
-} */
