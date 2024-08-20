@@ -1,5 +1,11 @@
 /* Style the buttons that are used to open and close the accordion panel */
+.sections-container {
+  width: 100%;
+}
+
+
 .accordion {
+    margin:0;
     background-color: #fff;
     color: black;
     font-size: 1.2rem;
@@ -50,12 +56,16 @@
     border-radius: 0;
   }
 
+
   .new-entry-btn {
     margin-top: 0px;
     border-bottom-left-radius: 12px;
     border-bottom-right-radius: 12px;
   }
 
+  .new-entry-btn:hover, .entry-btn:hover {
+    background-color: #ccc;
+  }
 .form-btn-container {
   display: flex;
   flex-direction: row;
@@ -99,10 +109,12 @@ background-color: white
 }
 
 input {
+  box-sizing: border-box;
   border: 2px solid transparent;
   border-radius: 12px;
   transition: border .25s, box-shadow .25s;
-  width: 36ch;
+  width: 100%;
+  max-width: 50ch;
   margin: auto;
   height: 1.8rem;
   margin-bottom: 1rem;
